@@ -1,0 +1,45 @@
+// proto/sso/sso.proto
+
+// Version ProtoBuf.
+syntax = "proto3";
+
+// Current packet - namespace for service and messages.
+package auth;
+
+// Setting for generation GO code.
+option go_package = "mediarise.sso.v1;ssov1";
+
+// Auth is service for managing permissions and roles.
+service Auth {
+  // Register registers a new user
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  // Login logs in a user and returns an auth token.
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+// TODO: For future, next service can description this or move to file
+// service Permissions {
+//  GetUserPermissions(GetUserPermissionsRequest) return UserPermissions
+// }
+
+// Object, which sender for calling RPC-method (pens) Register.
+message RegisterRequest {
+  string email = 1; // Email of the user to register.
+  string password = 2; // Password of the user to register
+}
+
+// Object, which method (pen) return.
+message RegisterResponse {
+  int64 user_id = 1; // User ID of the registered user.
+}
+
+// The same is true for the method Login()
+message LoginRequest {
+  string email = 1; // Email of the user to login.
+  string password = 2; // Password of the user to login.
+  int32 app_id = 3; // ID of the app ti login to.
+}
+
+message LoginResponse {
+  string token = 1; // Auth token of the logged in user.
+}

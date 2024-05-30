@@ -1,0 +1,15 @@
+# ./Taskfile.yaml
+# See: https://taskfile.dev/api/
+
+version: "3"
+
+tasks:
+  default: # If you do not specify a specific command, default commands will be executed
+    cmds:
+      - task: generate
+  generate: ## Command for generation
+    aliases: ## Aliases commands for sample use
+      - gen
+    desc: "Generate code from proto files"
+    cmds: ## this description bash-commands
+      - protoc -I proto proto/sso/*.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative
